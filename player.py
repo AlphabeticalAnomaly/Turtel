@@ -1,7 +1,7 @@
+from turtle import Turtle
+
 START_POS = (0, -280)
 MOVE_SPEED = 10
-
-from turtle import Turtle
 
 
 class Player(Turtle):
@@ -12,7 +12,6 @@ class Player(Turtle):
         self.color("green")
         self.goto((START_POS))
         self.setheading(90)
-
 
     def turtle_move_up(self):
         self.forward(MOVE_SPEED)
