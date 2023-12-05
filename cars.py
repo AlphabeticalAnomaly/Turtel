@@ -31,7 +31,7 @@ class CarManager(Car):
     def __init__(self):
         self.car_list = []
 
-    def create_car(self):
+    def create_cars(self):
         for i in range(30):
             new_car = Car()
             self.car_list.append(new_car)
@@ -43,3 +43,9 @@ class CarManager(Car):
     def speedup_cars(self):
         for car in self.car_list:
             car.car_speedup()
+
+    def traffic_handler(self):
+        for car in self.car_list:
+            if car.xcor() < -320:
+                car.goto(x=random.randrange(300, 360, 20), y=random.randrange(-200, 270, 20))
+
