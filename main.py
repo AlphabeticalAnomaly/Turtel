@@ -17,7 +17,7 @@ screen.listen()
 screen.onkey(player.turtle_move_up, "Up")
 screen.onkey(player.turtle_move_down, "Down")
 car_manager = CarManager()
-car_manager.create_car()
+car_manager.create_cars()
 game_on = True
 
 while game_on:
@@ -25,12 +25,11 @@ while game_on:
     car_manager.move_cars()
     screen.update()
     time.sleep(0.1)
+    car_manager.traffic_handler()
     for car in car_manager.car_list:
         if car.distance(player) < 30:
             game_on = False
             gm = GameOver()
-        elif car.xcor() < -320:
-            car.goto(x=random.randrange(300, 360, 20), y=random.randrange(-200, 270, 20))
     if player.ycor() > 280:
         scoreboard.clear()
         player.player_reset()
