@@ -48,6 +48,8 @@ class TestCarManager:
 
     def test_car_collision(self):
         test_player = Player()
-        self.car_manager.create_cars(1)
-        expected_result = self.car_manager.car_collision(test_player)
+        self.car_manager.create_cars()
+        test_car = self.car_manager.car_list[1]
+        test_player.goto(test_car.xcor(), test_car.ycor())
+        expected_result = self.car_manager.check_collision(test_player)
         assert expected_result == True, "Player collision is not detected or the distance collision trigger has been modified from the default value"
