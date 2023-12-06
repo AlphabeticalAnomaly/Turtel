@@ -1,5 +1,6 @@
 import pytest
-from cars import Car, CAR_COLORS
+from cars import Car, CarManager, CAR_COLORS
+from player import Player
 
 
 class TestCar:
@@ -24,11 +25,29 @@ class TestCar:
         assert self.test_car.xcor() in range(-300, 360) and self.test_car.ycor() in range(-200, 270), "Car starting position is not in the correct range"
 
     def test_car_move_function(self):
-        cur_pos = self.test_car.xcor()
+        expected_pos = self.test_car.xcor() - self.test_car.speed
         self.test_car.car_move()
-        new_pos = self.test_car.xcor()
-        assert cur_pos - new_pos == self.test_car.speed, "Car did not move in the intended direction or at the specified speed"
+        actual_pos = self.test_car.xcor()
+        assert actual_pos == expected_pos, "Car did not move in the intended direction or at the specified speed"
 
     def test_car_speed_up_function(self):
         result = self.test_car.car_speedup()
         assert result == 25, "Car acceleration does not match the increment"
+
+
+class TestCarManager:
+
+    def setup_method(self):
+        self.car_manager = CarManager()
+
+    def test_car_manager_car_creation(self):
+        expected_value = 30
+        self.car_manager.create_cars(0)
+        actual_value = len(self.car_manager.car_list)
+        assert expected_value == actual_value, "Car manager did not spawn the proper number of cars"
+
+    def test_car_collision(self):
+        test_player = Player()
+        self.car_manager.create_cars(1)
+        expected_result = self.car_manager.car_collision(test_player)
+        assert expected_result == True, "Player collision is not detected or the distance collision trigger has been modified from the default value"
