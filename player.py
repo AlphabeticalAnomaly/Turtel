@@ -22,3 +22,9 @@ class Player(Turtle):
     def player_reset(self):
         self.goto((START_POS))
         return self.ycor()
+
+    def player_current_x_position(self):
+        return self.xcor()
+
+    def player_current_y_position(self):
+        return self.ycor()

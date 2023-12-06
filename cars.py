@@ -6,6 +6,7 @@ import random
 CAR_SPEED = 5
 CAR_SPEED_INCREMENT = 20
 CAR_COLORS = ["green", "gold", "yellow", "red", "black", "brown", "orange", "blue"]
+CAR_COLLISION_TRIGGER = 30
 
 
 class Car(Turtle):
@@ -31,10 +32,16 @@ class CarManager(Car):
     def __init__(self):
         self.car_list = []
 
-    def create_cars(self):
-        for i in range(30):
-            new_car = Car()
-            self.car_list.append(new_car)
+    def create_cars(self, test=0):
+        if test == 0:
+            for i in range(30):
+                new_car = Car()
+                self.car_list.append(new_car)
+        elif test != 0:
+            test_car = Car()
+            test_car.goto(0, -280)
+            self.car_list.append(test_car)
+            print(type(test_car))
 
     def move_cars(self):
         for car in self.car_list:
@@ -44,8 +51,14 @@ class CarManager(Car):
         for car in self.car_list:
             car.car_speedup()
 
-    def traffic_handler(self):
+    def handle_traffic(self):
         for car in self.car_list:
             if car.xcor() < -320:
                 car.goto(x=random.randrange(300, 360, 20), y=random.randrange(-200, 270, 20))
+
+    def car_collision(self, player):
+        for car in self.car_list:
+            if car.distance(player) < CAR_COLLISION_TRIGGER:
+                return True
+
 

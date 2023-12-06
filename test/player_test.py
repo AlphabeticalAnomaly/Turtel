@@ -12,16 +12,16 @@ class TestPlayer:
         assert self.test_player.xcor() == 0 and self.test_player.ycor() == -280, "Player did not start in the specified starting position"
 
     def test_player_move_up(self):
-        current_pos = self.test_player.ycor()
+        expected_pos = self.test_player.ycor() + 10
         self.test_player.turtle_move_up()
-        new_pos = self.test_player.ycor()
-        assert new_pos - current_pos == 10, "Player did not move 10 units up"
+        actual_pos = self.test_player.ycor()
+        assert expected_pos == actual_pos, "Player did not move 10 units up"
 
     def test_player_move_down(self):
-        current_pos = self.test_player.ycor()
+        expected_pos = self.test_player.ycor() - 10
         self.test_player.turtle_move_down()
-        new_pos = self.test_player.ycor()
-        assert new_pos - current_pos == -10, "Player did not move 10 units down"
+        actual_pos = self.test_player.ycor()
+        assert expected_pos == actual_pos, "Player did not move 10 units down"
 
     def test_player_reset_pos(self):
         assert self.test_player.player_reset() == -280, "Player did not go to the specified starting position"
